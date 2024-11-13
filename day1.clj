@@ -16,10 +16,11 @@ treb7uchet")
        (Integer/parseInt (str (first x) (last x)))))
 
 (defn get-part-1-answer [s]
-  (reduce + (->>
-             s
-             (str/split-lines)
-             (map get-result-from-line))))
+  (->>
+   s
+   (str/split-lines)
+   (map get-result-from-line)
+   (reduce +)))
 
 (get-part-1-answer real-input)
 
@@ -61,11 +62,12 @@ zoneight234
                #(str (get m (keyword %)))))
 
 (defn get-part-2-answer [s]
-  (reduce + (->>
-             s
-             (str/split-lines)
-             (map #(replace-word-with-map-value % merged-words-to-num))
-             (map #(replace-word-with-map-value % word-to-num))
-             (map get-result-from-line))))
+  (->>
+   s
+   (str/split-lines)
+   (map #(replace-word-with-map-value % merged-words-to-num))
+   (map #(replace-word-with-map-value % word-to-num))
+   (map get-result-from-line)
+   (reduce +)))
 
 (get-part-2-answer real-input)
