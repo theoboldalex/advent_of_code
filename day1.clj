@@ -11,9 +11,6 @@ treb7uchet")
 
 (def real-input (slurp "day1.txt"))
 
-(defn get-lines [s]
-  (str/split-lines s))
-
 (defn get-value-for-line [s]
   (->> s
        (map #(str/replace % #"[^0-9]" ""))
@@ -23,7 +20,7 @@ treb7uchet")
 (defn get-part-1-answer [s]
   (reduce + (->>
              s
-             (get-lines)
+             (str/split-lines)
              (get-value-for-line))))
 
 (get-part-1-answer real-input)
@@ -68,7 +65,7 @@ zoneight234
 (defn get-part-2-answer [s]
   (reduce + (->>
              s
-             (get-lines)
+             (str/split-lines)
              (map #(replace-word-with-map-value % merged-words-to-num))
              (map #(replace-word-with-map-value % word-to-num))
              (get-value-for-line))))
