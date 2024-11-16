@@ -22,7 +22,8 @@ defmodule Day2 do
 
     Enum.reduce(matches, colour_map, fn [_, count, color], acc ->
       count = String.to_integer(count)
-      Map.update(acc, String.to_atom(color), count, &(&1 + count))
+      colour_key = String.to_atom(color)
+      Map.update(acc, colour_key, count, &(&1 + count))
     end)
   end
 end
