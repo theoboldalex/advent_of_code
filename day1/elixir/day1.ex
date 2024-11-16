@@ -38,11 +38,7 @@ defmodule Day1 do
     |> accumulate_total()
   end
 
-  defp get_lines(str) do
-    str
-    |> String.trim()
-    |> String.split(~r{\n})
-  end
+  defp get_lines(str), do: str |> String.trim() |> String.split(~r{\n})
 
   defp replace_patterns_in_line(line) do
       pre_pattern = Enum.join(Map.keys(@pre_word_to_num), "|")
