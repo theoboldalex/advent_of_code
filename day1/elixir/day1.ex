@@ -7,7 +7,7 @@ defmodule Day1 do
     sevenine: 79,
     eightwo: 82,
     eighthree: 83,
-    nineight: 98,
+    nineight: 98
   }
 
   @word_to_num %{
@@ -41,21 +41,21 @@ defmodule Day1 do
   defp get_lines(str), do: str |> String.trim() |> String.split(~r{\n})
 
   defp replace_patterns_in_line(line) do
-      pre_pattern = Enum.join(Map.keys(@pre_word_to_num), "|")
-      pattern = Enum.join(Map.keys(@word_to_num), "|")
-      
-      line 
-      |> String.replace(~r"#{pre_pattern}", fn p -> 
-        to_string(Map.get(@pre_word_to_num, String.to_atom(p)))
-      end)
-      |> String.replace(~r"#{pattern}", fn p -> 
-        to_string(Map.get(@word_to_num, String.to_atom(p)))
-      end)
-      |> String.replace(~r{[^0-9]}, "")
+    pre_pattern = Enum.join(Map.keys(@pre_word_to_num), "|")
+    pattern = Enum.join(Map.keys(@word_to_num), "|")
+
+    line
+    |> String.replace(~r"#{pre_pattern}", fn p ->
+      to_string(Map.get(@pre_word_to_num, String.to_atom(p)))
+    end)
+    |> String.replace(~r"#{pattern}", fn p ->
+      to_string(Map.get(@word_to_num, String.to_atom(p)))
+    end)
+    |> String.replace(~r{[^0-9]}, "")
   end
 
-  defp get_number_from_line(line), do: String.to_integer(String.slice(line, 0..0) <> String.slice(line, -1..-1)) 
+  defp get_number_from_line(line),
+    do: String.to_integer(String.slice(line, 0..0) <> String.slice(line, -1..-1))
 
-  defp accumulate_total(lines), do: lines |> Enum.reduce(fn (a, b) -> a + b end)
+  defp accumulate_total(lines), do: lines |> Enum.reduce(fn a, b -> a + b end)
 end
-
