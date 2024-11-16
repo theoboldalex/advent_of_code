@@ -26,7 +26,7 @@ defmodule Day1 do
     input_string
     |> get_lines()
     |> Enum.map(fn s -> String.replace(s, ~r{[^0-9]}, "") end)
-    |> get_number_from_line()
+    |> Enum.map(&get_number_from_line/1)
     |> accumulate_total()
   end
 
@@ -34,7 +34,7 @@ defmodule Day1 do
     input_string
     |> get_lines()
     |> Enum.map(&replace_patterns_in_line/1)
-    |> get_number_from_line()
+    |> Enum.map(&get_number_from_line/1)
     |> accumulate_total()
   end
 
@@ -58,12 +58,7 @@ defmodule Day1 do
       |> String.replace(~r{[^0-9]}, "")
   end
 
-  defp get_number_from_line(line) do
-    line
-    |> Enum.map(fn n -> 
-      String.to_integer(String.slice(n, 0..0) <> String.slice(n, -1..-1)) 
-    end)
-  end
+  defp get_number_from_line(line), do: String.to_integer(String.slice(line, 0..0) <> String.slice(line, -1..-1)) 
 
   defp accumulate_total(lines), do: lines |> Enum.reduce(fn (a, b) -> a + b end)
 end
