@@ -33,19 +33,7 @@ defmodule Day1 do
   def part_two_answer(input_string) do
     input_string
     |> get_lines()
-    |> Enum.map(fn line -> 
-      pre_pattern = Enum.join(Map.keys(@pre_word_to_num), "|")
-      pattern = Enum.join(Map.keys(@word_to_num), "|")
-      
-      line 
-      |> String.replace(~r"#{pre_pattern}", fn p -> 
-        to_string(Map.get(@pre_word_to_num, String.to_atom(p)))
-      end)
-      |> String.replace(~r"#{pattern}", fn p -> 
-        to_string(Map.get(@word_to_num, String.to_atom(p)))
-      end)
-    end)
-    |> Enum.map(fn s -> String.replace(s, ~r{[^0-9]}, "") end)
+    |> Enum.map(&replace_patterns_in_line/1)
     |> get_number_from_line()
     |> accumulate_total()
   end
@@ -56,6 +44,20 @@ defmodule Day1 do
     |> String.split(~r{\n})
   end
 
+  defp replace_patterns_in_line(line) do
+      pre_pattern = Enum.join(Map.keys(@pre_word_to_num), "|")
+      pattern = Enum.join(Map.keys(@word_to_num), "|")
+      
+      line 
+      |> String.replace(~r"#{pre_pattern}", fn p -> 
+        to_string(Map.get(@pre_word_to_num, String.to_atom(p)))
+      end)
+      |> String.replace(~r"#{pattern}", fn p -> 
+        to_string(Map.get(@word_to_num, String.to_atom(p)))
+      end)
+      |> String.replace(~r{[^0-9]}, "")
+  end
+
   defp get_number_from_line(line) do
     line
     |> Enum.map(fn n -> 
@@ -63,9 +65,6 @@ defmodule Day1 do
     end)
   end
 
-  defp accumulate_total(lines) do
-    lines
-    |> Enum.reduce(fn (a, b) -> a + b end)
-  end
+  defp accumulate_total(lines), do: lines |> Enum.reduce(fn (a, b) -> a + b end)
 end
 
