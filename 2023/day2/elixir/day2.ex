@@ -54,7 +54,8 @@ defmodule Day2 do
 
     games
     |> Enum.map(fn game ->
-      game[:red] <= limits[:red] and game[:green] <= limits[:green] and
+      game[:red] <= limits[:red] and
+        game[:green] <= limits[:green] and
         game[:blue] <= limits[:blue]
     end)
   end
