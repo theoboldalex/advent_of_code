@@ -8,7 +8,6 @@ defmodule Day2 do
     |> Enum.filter(fn {v, _} -> not Enum.member?(v, false) end)
     |> Enum.map(fn {_, index} -> index + 1 end)
     |> Enum.reduce(&(&1 + &2))
-    |> IO.inspect()
   end
 
   def part_two_answer(input_file) do
@@ -17,7 +16,6 @@ defmodule Day2 do
     |> Enum.map(&get_game_state/1)
     |> Enum.map(&get_max_from_game/1)
     |> Enum.reduce(&(&1 + &2))
-    |> IO.inspect()
   end
 
   defp read_input(path), do: File.read!("#{__DIR__}/#{path}") |> get_lines()
@@ -68,6 +66,3 @@ defmodule Day2 do
     Enum.max(red) * Enum.max(green) * Enum.max(blue)
   end
 end
-
-Day2.part_one_answer("real.txt")
-Day2.part_two_answer("real.txt")
