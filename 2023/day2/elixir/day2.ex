@@ -3,6 +3,7 @@ defmodule Day2 do
     input_file
     |> read_input()
     |> Enum.map(&get_game_state/1)
+    |> Enum.map(&get_possible_games/1)
     |> Enum.with_index()
     |> Enum.filter(fn {v, _} -> not Enum.member?(v, false) end)
     |> Enum.map(fn {_, index} -> index + 1 end)
@@ -13,7 +14,7 @@ defmodule Day2 do
   def part_two_answer(input_file) do
     input_file
     |> read_input()
-    |> Enum.map(&get_min_cubes/1)
+    |> Enum.map(&get_game_state/1)
     |> Enum.map(&get_max_from_game/1)
     |> Enum.reduce(&(&1 + &2))
     |> IO.inspect()
@@ -41,38 +42,20 @@ defmodule Day2 do
         key = String.to_atom(colour)
         Map.update(acc, key, count, &(&1 + count))
       end)
-      |> is_game_legal()
     end)
   end
 
-  defp is_game_legal(game) do
+  defp get_possible_games(games) do
     limits = %{
       red: 12,
       green: 13,
       blue: 14
     }
 
-    game[:red] <= limits[:red] and game[:green] <= limits[:green] and game[:blue] <= limits[:blue]
-  end
-
-  defp get_min_cubes(line) do
-    games = String.split(line, ";")
-    pattern = ~r/([0-9]+) (red|green|blue)/
-
-    Enum.map(games, fn game ->
-      matches = Regex.scan(pattern, game)
-
-      game = %{
-        red: 0,
-        green: 0,
-        blue: 0
-      }
-
-      Enum.reduce(matches, game, fn [_, count, colour], acc ->
-        count = String.to_integer(count)
-        key = String.to_atom(colour)
-        Map.update(acc, key, count, &(&1 + count))
-      end)
+    games
+    |> Enum.map(fn game ->
+      game[:red] <= limits[:red] and game[:green] <= limits[:green] and
+        game[:blue] <= limits[:blue]
     end)
   end
 
@@ -86,3 +69,4 @@ defmodule Day2 do
 end
 
 Day2.part_one_answer("real.txt")
+Day2.part_two_answer("real.txt")
