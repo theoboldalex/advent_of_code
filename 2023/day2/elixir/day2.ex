@@ -1,11 +1,10 @@
 defmodule Day2 do
-  def answer(input_file) do
+  def part_one_answer(input_file) do
     input_file
     |> read_input()
-    |> Enum.map(&get_line_count_map/1)
-    |> Enum.map(&is_game_legal/1)
+    |> Enum.map(&get_game_state/1)
     |> Enum.with_index()
-    |> Enum.filter(fn {v, _} -> v == true end)
+    |> Enum.filter(fn {v, _} -> not Enum.member?(v, false) end)
     |> Enum.map(fn {_, index} -> index + 1 end)
     |> Enum.reduce(&(&1 + &2))
   end
@@ -14,21 +13,25 @@ defmodule Day2 do
 
   defp get_lines(str), do: str |> String.trim() |> String.split(~r{\n})
 
-  defp get_line_count_map(line) do
+  defp get_game_state(line) do
+    games = String.split(line, ";")
     pattern = ~r/([0-9]+) (red|green|blue)/
 
-    colour_map = %{
-      red: 0,
-      blue: 0,
-      green: 0
-    }
+    Enum.map(games, fn game ->
+      matches = Regex.scan(pattern, game)
 
-    matches = Regex.scan(pattern, line)
+      game = %{
+        red: 0,
+        green: 0,
+        blue: 0
+      }
 
-    Enum.reduce(matches, colour_map, fn [_, count, color], acc ->
-      count = String.to_integer(count)
-      colour_key = String.to_atom(color)
-      Map.update(acc, colour_key, count, &(&1 + count))
+      Enum.reduce(matches, game, fn [_, count, colour], acc ->
+        count = String.to_integer(count)
+        key = String.to_atom(colour)
+        Map.update(acc, key, count, &(&1 + count))
+      end)
+      |> is_game_legal()
     end)
   end
 
@@ -42,5 +45,3 @@ defmodule Day2 do
     game[:red] <= limits[:red] and game[:green] <= limits[:green] and game[:blue] <= limits[:blue]
   end
 end
-
-IO.inspect(Day2.answer("1_test.txt"))
