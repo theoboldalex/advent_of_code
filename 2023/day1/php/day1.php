@@ -15,5 +15,5 @@ echo array_reduce(
         )
     ),
     fn (?int $a, ?int $b) => $a + $b
-);
+) . PHP_EOL;
 
