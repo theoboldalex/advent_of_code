@@ -1,34 +1,21 @@
 defmodule DayOne do
   @input_path "test.txt"
 
-  def stream_file, do: File.stream!("#{__DIR__}/#{@input_path}")
-
-  def get_line_parts do
-    stream_file()
+  def get_sides do
+    File.read!("#{__DIR__}/#{@input_path}")
+    |> String.split(~r/\n/, trim: true)
     |> Enum.map(fn l ->
-      l
-      |> String.trim()
-      |> String.split(~r/\s+/, parts: 2)
+      String.split(l)
+      |> Enum.map(&String.to_integer/1)
+      |> List.to_tuple()
     end)
-  end
-
-  def get_left do
-    get_line_parts()
-    |> Enum.map(&String.to_integer(hd(&1)))
-  end
-
-  def get_right do
-    get_line_parts()
-    |> Enum.map(fn l ->
-      case l do
-        [_, tail] -> String.to_integer(tail)
-        [_] -> ""
-      end
-    end)
+    |> Enum.unzip()
   end
 
   def part_one do
-    [Enum.sort(get_left()), Enum.sort(get_right())]
+    {left, right} = get_sides()
+
+    [Enum.sort(left), Enum.sort(right)]
     |> Enum.zip()
     |> Enum.reduce(0, fn {l, r}, acc ->
       abs(l - r) + acc
@@ -36,11 +23,11 @@ defmodule DayOne do
   end
 
   def part_two do
-    left = get_left()
-    right = Enum.frequencies(get_right())
+    {left, right} = get_sides()
+    freq = Enum.frequencies(right)
 
     Enum.reduce(left, 0, fn n, acc ->
-      n * Map.get(right, n, 0) + acc
+      n * Map.get(freq, n, 0) + acc
     end)
   end
 end
