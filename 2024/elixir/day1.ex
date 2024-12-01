@@ -28,17 +28,20 @@ defmodule DayOne do
   end
 
   def part_one do
-    Enum.zip(Enum.sort(get_left()), Enum.sort(get_right()))
-    |> Enum.map(fn {l, r} -> abs(l - r) end)
-    |> Enum.reduce(&(&1 + &2))
+    [Enum.sort(get_left()), Enum.sort(get_right())]
+    |> Enum.zip()
+    |> Enum.reduce(0, fn {l, r}, acc ->
+      abs(l - r) + acc
+    end)
   end
 
   def part_two do
     left = get_left()
     right = Enum.frequencies(get_right())
 
-    Enum.map(left, &(&1 * Map.get(right, &1, 0)))
-    |> Enum.reduce(&(&1 + &2))
+    Enum.reduce(left, 0, fn n, acc ->
+      n * Map.get(right, n, 0) + acc
+    end)
   end
 end
 
