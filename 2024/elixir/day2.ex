@@ -1,5 +1,5 @@
 defmodule DayTwo do
-  @input_path "real.txt"
+  @input_path "test.txt"
 
   def get_lines do
     File.read!("#{__DIR__}/#{@input_path}")
@@ -18,7 +18,20 @@ defmodule DayTwo do
   end
 
   def part_two do
-    nil
+    get_lines()
+    |> Enum.filter(fn line ->
+      is_report_safe?(line) or
+        Enum.any?(line_permutations(line), &is_report_safe?/1)
+    end)
+    |> length()
+  end
+
+  def line_permutations(line) do
+    Enum.with_index(line)
+    |> Enum.map(fn {_, idx} ->
+      Enum.slice(line, 0, idx) ++
+        Enum.slice(line, idx + 1, length(line) - idx - 1)
+    end)
   end
 
   defp is_report_safe?(report), do: asc?(report) or desc?(report)
