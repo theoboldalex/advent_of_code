@@ -26,7 +26,7 @@ defmodule DayTwo do
     |> length()
   end
 
-  def line_permutations(line) do
+  defp line_permutations(line) do
     Enum.with_index(line)
     |> Enum.map(fn {_, idx} ->
       Enum.slice(line, 0, idx) ++
