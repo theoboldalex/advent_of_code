@@ -46,7 +46,7 @@ defmodule DayFour do
     left_to_right?(grid, row, col) and right_to_left?(grid, row, col)
   end
 
-  def count_occurrences(grid, word) do
+  defp count_occurrences(grid, word) do
     chars = String.graphemes(word)
 
     grid
