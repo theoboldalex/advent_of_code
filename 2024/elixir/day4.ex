@@ -57,7 +57,7 @@ defmodule DayFour do
         {current_x + i * direction_x, current_y + i * direction_y}
       end)
 
-    if Enum.all?(coords, fn {cx, cy} -> check_within_grid_bounds(grid, cx, cy) end) do
+    if Enum.all?(coords, fn {cx, cy} -> within_grid_bounds?(grid, cx, cy) end) do
       letters =
         Enum.map(coords, fn {cx, cy} ->
           Enum.at(Enum.at(grid, cx), cy)
@@ -69,7 +69,7 @@ defmodule DayFour do
     end
   end
 
-  defp check_within_grid_bounds(grid, x, y),
+  defp within_grid_bounds?(grid, x, y),
     do: x >= 0 and y >= 0 and x < length(grid) and y < length(hd(grid))
 end
 
