@@ -1,5 +1,5 @@
 defmodule DayFour do
-  @input_path "real.txt"
+  @input_path "test.txt"
 
   @possible_directions [
     {1, 0},
@@ -13,15 +13,40 @@ defmodule DayFour do
   ]
 
   def part_one do
-    count_occurrences(define_grid(read_input()))
+    count_occurrences(define_grid(read_input()), "XMAS")
   end
 
   def part_two do
-    nil
+    grid =
+      read_input()
+      |> define_grid()
+
+    line_length = Enum.count(List.first(grid))
+
+    grid
+    |> List.flatten()
+    |> Enum.with_index()
+    |> Enum.reduce(0, fn
+      {"A", i}, acc ->
+        row = div(i, line_length)
+        col = rem(i, line_length)
+
+        if x_marks_the_spot(grid, row, col) do
+          acc + 1
+        else
+          acc
+        end
+
+      {_, _}, acc ->
+        acc
+    end)
   end
 
-  def count_occurrences(grid) do
-    word = "XMAS"
+  defp x_marks_the_spot(grid, row, col) do
+    left_to_right?(grid, row, col) and right_to_left?(grid, row, col)
+  end
+
+  def count_occurrences(grid, word) do
     chars = String.graphemes(word)
 
     grid
@@ -71,7 +96,40 @@ defmodule DayFour do
 
   defp within_grid_bounds?(grid, x, y),
     do: x >= 0 and y >= 0 and x < length(grid) and y < length(hd(grid))
+
+  defp left_to_right?(grid, row, col) do
+    left =
+      if row - 1 >= 0 do
+        grid |> Enum.at(row - 1, []) |> Enum.at(col - 1)
+      else
+        nil
+      end
+
+    right = grid |> Enum.at(row + 1, []) |> Enum.at(col + 1)
+
+    (left == "M" and right == "S") or
+      (left == "S" and right == "M")
+  end
+
+  defp right_to_left?(grid, row, col) do
+    right =
+      if row - 1 >= 0 do
+        grid |> Enum.at(row - 1, []) |> Enum.at(col + 1)
+      else
+        nil
+      end
+
+    left =
+      if col - 1 >= 0 do
+        grid |> Enum.at(row + 1, []) |> Enum.at(col - 1)
+      else
+        nil
+      end
+
+    (right == "M" and left == "S") or
+      (right == "S" and left == "M")
+  end
 end
 
 IO.puts("part one: #{DayFour.part_one()}")
-# IO.puts("part two: #{DayFour.part_two()}")
+IO.puts("part two: #{DayFour.part_two()}")
