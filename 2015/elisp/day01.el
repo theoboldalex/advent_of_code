@@ -14,8 +14,8 @@
       (seq-reduce
        (lambda (acc char)
 	 (cond
-	  ((string= char "(") (+ acc 1))
-	  ((string= char ")") (- acc 1))
+	  ((string= char "(") (1+ acc))
+	  ((string= char ")") (1- acc))
 	  (t acc)))
        file-contents
        0))
