@@ -1,6 +1,6 @@
-# part one
 contents = open("input.txt", "r").read().strip()
 
+# part one
 coords_visited = [(0, 0)]
 
 for char in contents:
@@ -22,5 +22,5 @@ for char in contents:
         )
 
 print(len(set(coords_visited)))
-        
-        
+
+# part two
