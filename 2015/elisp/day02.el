@@ -40,3 +40,34 @@
        0))
 
 (print (concat "part one: " (number-to-string total-paper-required)))
+
+;; part two
+(defun ribbon-for-bow (present)
+  (seq-reduce '* present 1))
+
+(defun remove-max-dimension (present)
+  (let ((sorted (sort present '<)))
+    (list (car sorted) (cadr sorted))))
+
+(defun ribbon-for-present (present)
+  (* 2 (seq-reduce '+ 
+		   (remove-max-dimension present) 0)))
+
+(setq ribbon-for-presents
+      (seq-map
+       (lambda (i)
+	 (* 2 (seq-reduce '+ i 0)))
+       (seq-map
+	'remove-max-dimension
+	present-dimensions)))
+
+(setq total-ribbon-required
+      (seq-reduce
+       '+
+       (seq-map
+	(lambda (i)
+	  (+ (ribbon-for-bow i) (ribbon-for-present i)))
+	present-dimensions)
+       0))
+
+(print (concat "part two: " (number-to-string total-ribbon-required)))
