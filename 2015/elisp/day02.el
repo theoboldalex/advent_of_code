@@ -1,10 +1,8 @@
 ;; part one
-(defun dimensions-to-list (d)
-  (seq-map 'string-to-number (split-string d "x")))
-
 (setq present-dimensions
       (seq-map
-       'dimensions-to-list
+       (lambda (i)
+	 (seq-map 'string-to-number (split-string i "x")))
        (with-temp-buffer
 	 (insert-file-contents-literally "input.txt")
 	 (split-string (string-trim (buffer-string)) "\n"))))
