@@ -50,8 +50,7 @@
     (list (car sorted) (cadr sorted))))
 
 (defun ribbon-for-present (present)
-  (* 2 (seq-reduce '+ 
-		   (remove-max-dimension present) 0)))
+  (* 2 (seq-reduce '+ (remove-max-dimension present) 0)))
 
 (setq ribbon-for-presents
       (seq-map
