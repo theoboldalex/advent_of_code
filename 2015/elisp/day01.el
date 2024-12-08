@@ -4,12 +4,6 @@
     (insert-file-contents-literally "input.txt")
     (split-string (buffer-string) "")))
 
-;; first approach
-;;(setq climb (length (seq-filter (lambda (c) (string-match c "(")) file-contents)))
-;;(setq descend (length (seq-filter (lambda (c) (string-match c ")")) file-contents)))
-;;(print (concat "part one: " (number-to-string (- climb descend))))
-
-;; better approach
 (setq answer-to-part-one
       (seq-reduce
        (lambda (acc char)
