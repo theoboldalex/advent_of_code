@@ -1,13 +1,5 @@
 ;; part one
-(setq present-dimensions
-      (seq-map
-       (lambda (i)
-	 (seq-map 'string-to-number (split-string i "x")))
-       (with-temp-buffer
-	 (insert-file-contents-literally "input.txt")
-	 (split-string (string-trim (buffer-string)) "\n"))))
-
-(defun get-faces (l)
+(defun get-face-dimensions (l)
   (list
     (seq-subseq l 0 2)
     (seq-subseq l 1 3)
@@ -16,13 +8,21 @@
 (defun calc-area-of-face (l)
   (* (car l) (car (last l))))
 
+(setq present-dimensions
+      (seq-map
+       (lambda (i)
+	 (seq-map 'string-to-number (split-string i "x")))
+       (with-temp-buffer
+	 (insert-file-contents-literally "input.txt")
+	 (split-string (string-trim (buffer-string)) "\n"))))
+
 (setq area-of-faces 
       (seq-map
        (lambda (i)
 	 (seq-map 'calc-area-of-face i))
-       (seq-map 'get-faces present-dimensions)))
+       (seq-map 'get-face-dimensions present-dimensions)))
 
-(setq present-paper
+(setq paper-required-for-present
       (seq-map
        (lambda (i)
 	 (list
@@ -30,12 +30,13 @@
 	  (seq-min i)))
        area-of-faces))
 
-(setq part-one-answer
-      (seq-reduce '+
+(setq total-paper-required
+      (seq-reduce
+       '+
        (seq-map
 	(lambda (i)
 	  (seq-reduce '+ i 0))
-	present-paper)
+	paper-required-for-present)
        0))
 
-(print (concat "part one: " (number-to-string part-one-answer)))
+(print (concat "part one: " (number-to-string total-paper-required)))
