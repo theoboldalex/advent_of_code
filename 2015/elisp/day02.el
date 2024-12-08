@@ -1,9 +1,9 @@
 ;; part one
 (defun get-face-dimensions (l)
   (list
-    (seq-subseq l 0 2)
-    (seq-subseq l 1 3)
-    (list (car (last l)) (seq-first l))))
+   (seq-subseq l 0 2)
+   (seq-subseq l 1 3)
+   (list (car (last l)) (seq-first l))))
 
 (defun calc-area-of-face (l)
   (* (car l) (car (last l))))
