@@ -7,6 +7,7 @@
 (setq coords-visited (list (list 0 0))) ;; initial setup here so in scope for functions
 
 (defun build-path (str)
+  ;; this is janky af. must be a more idiomatic way
   (setq coords-visited (list (list 0 0))) ;; reset here otherwise answer only correct first time run interactively
   (seq-map
    'set-current-coords
