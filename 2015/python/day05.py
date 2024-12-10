@@ -30,3 +30,46 @@ for s in input:
 
 print(f"part one: {answer}")
     
+# part two
+def has_overlap(l):
+    hash_map = {}
+    for (idx, el) in enumerate(l):
+        if el in hash_map and el == l[idx-1]:
+            return True
+
+        hash_map[el] = idx
+        
+    return False
+
+def is_string_still_nice(str):
+    pairs = []
+    for (idx, char) in enumerate(str):
+        if idx == len(str):
+            break
+
+        current_chunk = str[idx:idx+2]
+        pairs.append(current_chunk)
+
+    if len(set(pairs)) == len(pairs):
+        return False
+    else:
+        if has_overlap(pairs):
+            return False
+
+    for (idx, char) in enumerate(str):
+        if idx == len(str) - 2:
+            return False
+
+        if char == str[idx+2]:
+            return True
+
+    return True
+
+            
+input = open("input.txt", "r")
+part_two_answer = 0
+for s in input:
+    if is_string_still_nice(s.strip()):
+        part_two_answer += 1
+        
+print(f"part two: {part_two_answer}")
