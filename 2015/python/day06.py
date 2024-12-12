@@ -55,3 +55,42 @@ for row in grid:
             answer += 1
 
 print(f"part one: {answer}")
+
+# part two
+input = open("input.txt", "r")
+grid = [[0 for i in range(1000)] for j in range(1000)]
+
+for line in input:
+    parsed_line = parse_line(line)
+    start_point = parsed_line[1][0]
+    end_point = parsed_line[1][1]
+    start_pos, start_row = start_point
+    end_pos, end_row = end_point
+
+    if parsed_line[0] == "on":
+        for idx, row in enumerate(grid):
+            if idx >= start_row and idx <= end_row:
+                for k, v in enumerate(row):
+                    if k >= start_pos and k <= end_pos:
+                        grid[idx][k] += 1
+    elif parsed_line[0] == "off":
+        for idx, row in enumerate(grid):
+            if idx >= start_row and idx <= end_row:
+                for k, v in enumerate(row):
+                    if k >= start_pos and k <= end_pos and v > 0:
+                        grid[idx][k] -= 1 
+    else:
+        for idx, row in enumerate(grid):
+            if idx >= start_row and idx <= end_row:
+                for k, v in enumerate(row):
+                    if k >= start_pos and k <= end_pos:
+                        grid[idx][k] += 2
+
+                        
+answer = 0
+for row in grid:
+    for i in row:
+        answer += i
+
+print(f"part two: {answer}")
+
