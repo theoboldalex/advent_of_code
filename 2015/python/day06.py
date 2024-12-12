@@ -54,4 +54,4 @@ for row in grid:
         if i == 1:
             answer += 1
 
-print(answer)
+print(f"part one: {answer}")
