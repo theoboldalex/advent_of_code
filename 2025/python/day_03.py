@@ -10,10 +10,6 @@ def part_one():
             for i in range(row_length):
                 for j in range(i + 1, row_length):
                     current = int(f"{row[i]}{row[j]}")
-                    if current == max_possible_joltage:
-                        max_joltage_in_bank = max_possible_joltage
-                        continue
-
                     if current > max_joltage_in_bank: max_joltage_in_bank = current
 
             total_output_joltage += max_joltage_in_bank
