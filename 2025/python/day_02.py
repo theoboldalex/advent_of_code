@@ -1,5 +1,4 @@
 import re
-from functools import reduce
 
 def part_one():
     with open("./input/day_02.txt") as input:
