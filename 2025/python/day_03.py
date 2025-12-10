@@ -1,5 +1,5 @@
 def part_one():
-    total_output_joltage_by_row = []
+    total_output_joltage = 0
 
     with open("./input/day_03.txt") as input:
         for row in input:
@@ -15,9 +15,9 @@ def part_one():
 
                     if current > maxJoltageInBank: maxJoltageInBank = current
 
-            total_output_joltage_by_row.append(maxJoltageInBank)
+            total_output_joltage += maxJoltageInBank
         
-        return sum(total_output_joltage_by_row)
+        return total_output_joltage
                 
 
 def part_two():
