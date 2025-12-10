@@ -5,23 +5,18 @@ def part_one():
 
     with open("./input/day_01.txt") as input:
         for row in input:
-            direction = row[0]
-            if len(row) <= 3:
-                distance = int(row.strip()[-1])
-            else:
-                distance = int(row.strip()[-2:])
+            clean_row = row.strip()
+            direction = clean_row[0]
+            distance = int(clean_row[-1] if len(row) <= 3 else clean_row[-2:])
 
             if direction == "L":
                 current_pos -= distance
-                if current_pos < 0:
-                    current_pos += 100
-            elif direction == "R":
+                if current_pos < 0: current_pos += 100
+            else:
                 current_pos += distance
-                if current_pos > 99:
-                    current_pos -= 100
+                if current_pos > 99: current_pos -= 100
 
-            if current_pos == 0:
-                answer += 1
+            if current_pos == 0: answer += 1
 
     return answer
 
