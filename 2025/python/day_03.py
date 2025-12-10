@@ -3,13 +3,13 @@ def part_one():
     max_possible_joltage = 99
 
     with open("./input/day_03.txt") as input:
-        for row in input:
-            cleaned_row = row.strip()
+        for row in map(str.strip, input):
             max_joltage_in_bank = 0
-
-            for i in range(len(cleaned_row)):
-                for j in range(i + 1, len(cleaned_row)):
-                    current = int(f"{cleaned_row[i]}{cleaned_row[j]}")
+            row_length = len(row)
+            
+            for i in range(row_length):
+                for j in range(i + 1, row_length):
+                    current = int(f"{row[i]}{row[j]}")
                     if current == max_possible_joltage:
                         max_joltage_in_bank = max_possible_joltage
                         continue
