@@ -1,6 +1,5 @@
 def part_one():
     total_output_joltage = 0
-    max_possible_joltage = 99
 
     with open("./input/day_03.txt") as input:
         for row in map(str.strip, input):
@@ -18,7 +17,22 @@ def part_one():
                 
 
 def part_two():
-    return 2
+    total_output_joltage = 0
+
+    with open("./input/day_03.txt") as input:
+        for row in map(str.strip, input):
+            stack = []
+            distance_from_twelve = max(0, len(row) - 12)
+
+            for digit in row:
+                while stack and distance_from_twelve > 0 and stack[-1] < digit:
+                    stack.pop()
+                    distance_from_twelve -= 1
+                stack.append(digit)
+            
+            total_output_joltage += int(''.join(stack[:12]))
+
+    return total_output_joltage
 
 print(f"part one: {part_one()}")
 print(f"part two: {part_two()}")
