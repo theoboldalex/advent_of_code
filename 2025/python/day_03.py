@@ -14,7 +14,7 @@ def part_one():
 
             total_output_joltage += max_joltage_in_bank
         
-        return total_output_joltage
+    return total_output_joltage
                 
 
 def part_two():

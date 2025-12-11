@@ -9,7 +9,7 @@ def part_one():
             for i in range(int(min), int(max)):
                 if re.search(r"^(\d+)\1$", str(i)): invalid.append(i)
 
-        return sum(invalid)
+    return sum(invalid)
 
 def part_two():
     with open("./input/day_02.txt") as input:
@@ -20,7 +20,7 @@ def part_two():
             for i in range(int(min), int(max)):
                 if re.search(r"^(\d+)\1+$", str(i)): invalid.append(i)
 
-        return sum(invalid)
+    return sum(invalid)
 
 print(f"part one: {part_one()}")
 print(f"part two: {part_two()}")
