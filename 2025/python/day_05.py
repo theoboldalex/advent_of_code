@@ -44,7 +44,6 @@ def part_two_efficient():
 
     ingredient_ranges.sort()
     stack = []
-    merged_ranges = []
     for i in range(len(ingredient_ranges)):
         current = ingredient_ranges[i]
         if not stack or stack[-1][1] < current[0]:
@@ -53,10 +52,8 @@ def part_two_efficient():
             stack[-1][1] = current[1]
 
     while stack:
-        merged_ranges.append(stack.pop())
-
-    for i in merged_ranges:
-        fresh_ingredients += (i[1] - i[0]) + 1
+        top = stack.pop()
+        fresh_ingredients += (top[1] - top[0]) + 1
 
     return fresh_ingredients
 
