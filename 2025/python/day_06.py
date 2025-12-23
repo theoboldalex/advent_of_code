@@ -3,7 +3,7 @@ import re
 
 INPUT_PATH = "./input/day_06.txt"
 
-def part_one():
+def part_one() -> int:
     grand_total = 0
     with open(INPUT_PATH, "r") as input:
         rows = []
@@ -23,4 +23,38 @@ def part_one():
 
     return grand_total
 
+
+def part_two() -> int:
+    grand_total = 0
+
+    with open(INPUT_PATH, "r") as input:
+        rows = []
+        operations = []
+
+        for line in input:
+            rows.append(list(line))
+
+        operations = [i for i in rows.pop() if i.strip()]
+        cols = list(zip(*rows))
+        equations = []
+        current_equation = []
+
+        for col in map(list, cols):
+            factors = "".join([i for i in col if i.strip()])
+            current_equation.append(factors)
+
+            if not factors.strip():
+                e = [int(i) for i in current_equation if i.strip()]
+                next_op = operations.pop(0)
+
+                if next_op == "+":
+                    grand_total += sum(e)
+                elif next_op == "*":
+                    grand_total += math.prod(e)
+                current_equation = []
+
+    return grand_total
+
+
 print(f"Part one: {part_one()}")
+print(f"Part two: {part_two()}")
