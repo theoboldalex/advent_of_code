@@ -56,6 +56,6 @@ def part_two():
     
     return total_removed
     
-print(f"part one: {part_one()}")
-print(f"part two: {part_two()}")
+print(f"part one ⭐: {part_one()}")
+print(f"part two ⭐: {part_two()}")
 

@@ -34,5 +34,5 @@ def part_two():
 
     return total_output_joltage
 
-print(f"part one: {part_one()}")
-print(f"part two: {part_two()}")
+print(f"Part one ⭐: {part_one()}")
+print(f"Part two ⭐: {part_two()}")

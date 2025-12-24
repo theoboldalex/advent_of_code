@@ -56,5 +56,5 @@ def part_two() -> int:
     return grand_total
 
 
-print(f"Part one: {part_one()}")
-print(f"Part two: {part_two()}")
+print(f"Part one ⭐: {part_one()}")
+print(f"Part two ⭐: {part_two()}")

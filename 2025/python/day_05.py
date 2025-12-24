@@ -57,6 +57,6 @@ def part_two_efficient():
 
     return fresh_ingredients
 
-print(f"Part one: {part_one()}")
+print(f"Part one ⭐: {part_one()}")
 # print(f"Part two: {part_two()}")
-print(f"Part two efficient: {part_two_efficient()}")
+print(f"Part two efficient ⭐: {part_two_efficient()}")
